@@ -1,0 +1,39 @@
+# Python bytecode / caches
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+
+# dotenv / secrets
+.env
+.env.*    # (optional) ignores .env.local, .env.dev, etc
+!.env.example
+
+# direnv
+.envrc
+.direnv/
+
+# uv / python tooling
+.python-version
+
+# Testing / type checking / coverage
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
