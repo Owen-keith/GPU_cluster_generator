@@ -1,0 +1,66 @@
+version: 1
+source:
+  name: "NVIDIA Enterprise Reference Architecture Overview"
+  notes:
+    - "Enterprise RA targets 32–256 GPUs and typically 4–32 nodes depending on configuration."
+
+patterns:
+  - id: "2-4-3-200"
+    family: "pcie_optimized"
+    description: "2U PCIe optimized: up to 4 GPUs, 3 NICs, 200 GbE per GPU east-west."
+    c: 2
+    g: 4
+    n: 3
+    b_gbps_per_gpu: 200
+    node_count:
+      min: 8
+      max: 32
+    tags: ["enterprise-ra", "ethernet", "spectrum-x"]
+    workload_fit: ["training", "finetune", "inference"]
+    notes:
+      - "From Enterprise RA table: scales 8–32 nodes."
+
+  - id: "2-8-5-200"
+    family: "pcie_optimized"
+    description: "4U PCIe optimized: up to 8 GPUs, 5 NICs, 200 GbE per GPU east-west."
+    c: 2
+    g: 8
+    n: 5
+    b_gbps_per_gpu: 200
+    node_count:
+      min: 4
+      max: 32
+    tags: ["enterprise-ra", "ethernet", "spectrum-x"]
+    workload_fit: ["training", "finetune", "inference"]
+    notes:
+      - "From Enterprise RA table: scales 4–32 nodes."
+
+  - id: "2-8-9-400"
+    family: "hgx_scale_up"
+    description: "HGX scale-up: 8 GPUs, 9 NICs, 400 GbE per GPU east-west."
+    c: 2
+    g: 8
+    n: 9
+    b_gbps_per_gpu: 400
+    node_count:
+      min: 4
+      max: 32
+    tags: ["enterprise-ra", "ethernet", "spectrum-x", "hgx"]
+    workload_fit: ["training", "finetune"]
+    notes:
+      - "From Enterprise RA table: scales 4–32 nodes."
+
+  - id: "2-2-3-400"
+    family: "grace_scale_out"
+    description: "Grace scale-out: 2 GPUs, 3 NICs, 400 GbE per GPU east-west."
+    c: 2
+    g: 2
+    n: 3
+    b_gbps_per_gpu: 400
+    node_count:
+      min: 4
+      max: 32
+    tags: ["enterprise-ra", "ethernet", "spectrum-x", "grace"]
+    workload_fit: ["inference", "training"]
+    notes:
+      - "From Enterprise RA table: scales 4–32 nodes."

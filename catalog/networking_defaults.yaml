@@ -1,0 +1,9 @@
+version: 1
+defaults:
+  fabric: "ethernet"
+  platform: "spectrum-x"
+  switches: ["Spectrum-4"]
+  nics: ["BlueField-3 SuperNIC"]
+  guidance:
+    - "Treat east-west separately from north-south."
+    - "Use BlueField for north-south traffic."

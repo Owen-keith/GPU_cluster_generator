@@ -58,3 +58,6 @@ Task: For the GPU model name "{gpu_name}", fill in memory_gb (GiB) and set notes
     # Parse + validate strictly
     data: Any = json.loads(text)
     return GPUSpec.model_validate(data)
+
+def gpu_spec(gpu_name: str):
+    return lookup_or_model(gpu_name)
