@@ -1,6 +1,6 @@
 # GPU Cluster Generator (Prototype)
 
-A small prototype CLI that uses **NVIDIA Build / cloud-hosted NVIDIA NIM endpoints** to help generate early “solutions architect” style outputs for AI infrastructure design.
+A prototype CLI that uses **NVIDIA Build / cloud-hosted NVIDIA NIM endpoints** to help generate early “solutions architect” style outputs for AI infrastructure design.
 
 This repo currently focuses on two foundational capabilities:
 
@@ -8,13 +8,6 @@ This repo currently focuses on two foundational capabilities:
 2. **Reference Architecture (RA) pattern selection** using a small catalog of NVIDIA Enterprise RA patterns.
 
 The longer-term goal is to evolve this into a **cluster design generator** that can take customer constraints (training vs inference, model size, throughput targets, budget, deployment constraints) and produce a defensible **reference design**: compute node selection, node counts, network fabric, and eventually a draft BOM.
-
----
-
-## Why this exists
-
-- **Learning project:** explore how to integrate NVIDIA’s developer environment and NIM APIs into a real tool.
-- **Interview demo:** build something concrete that demonstrates systems thinking, use of NVIDIA reference architectures, and practical developer execution.
 
 ---
 
