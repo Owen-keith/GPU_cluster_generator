@@ -1,62 +1,62 @@
-⸻
+# GPU Cluster Generator (Prototype)
 
-GPU Cluster Generator (Prototype)
-
-A small prototype CLI that uses NVIDIA Build / cloud-hosted NVIDIA NIM endpoints to help generate early “solutions architect” style outputs for AI infrastructure design.
+A small prototype CLI that uses **NVIDIA Build / cloud-hosted NVIDIA NIM endpoints** to help generate early “solutions architect” style outputs for AI infrastructure design.
 
 This repo currently focuses on two foundational capabilities:
-	1.	GPU spec lookup (starting with GPU memory as a minimal example).
-	2.	Reference Architecture (RA) pattern selection using a small catalog of NVIDIA Enterprise RA patterns.
 
-The longer-term goal is to evolve this into a cluster design generator that can take customer constraints (training vs inference, model size, throughput targets, budget, deployment constraints) and produce a defensible reference design: compute node selection, node counts, network fabric, and eventually a draft BOM.
+1. **GPU spec lookup** (starting with GPU memory as a minimal example).
+2. **Reference Architecture (RA) pattern selection** using a small catalog of NVIDIA Enterprise RA patterns.
 
-⸻
+The longer-term goal is to evolve this into a **cluster design generator** that can take customer constraints (training vs inference, model size, throughput targets, budget, deployment constraints) and produce a defensible **reference design**: compute node selection, node counts, network fabric, and eventually a draft BOM.
 
-Why this exists
-	•	Learning project: explore how to integrate NVIDIA’s developer environment and NIM APIs into a real tool.
-	•	Interview demo: build something concrete that demonstrates systems thinking, use of NVIDIA reference architectures, and practical developer execution.
+---
 
-⸻
+## Why this exists
 
-NVIDIA products / technology used
+- **Learning project:** explore how to integrate NVIDIA’s developer environment and NIM APIs into a real tool.
+- **Interview demo:** build something concrete that demonstrates systems thinking, use of NVIDIA reference architectures, and practical developer execution.
 
-NVIDIA Build + Cloud-hosted NIM endpoints
-	•	This project calls cloud-hosted NVIDIA NIM endpoints (serverless) using an NVIDIA API key.
-	•	The endpoints are OpenAI API compatible, so the code uses the OpenAI Python SDK pointed at NVIDIA’s base URL.
+---
 
-Model used
-	•	Default reasoning model used for API calls:
-	•	deepseek-ai/deepseek-v3.1-terminus
+## NVIDIA products / technology used
 
-Note: For reliability, the project prefers deterministic “facts” from local catalogs whenever possible. The model is used as a fallback for unknown inputs (prototype mode).
+### NVIDIA Build + Cloud-hosted NIM endpoints
+- This project calls **cloud-hosted NVIDIA NIM endpoints** (serverless) using an **NVIDIA API key**.
+- The endpoints are **OpenAI API compatible**, so the code uses the OpenAI Python SDK pointed at NVIDIA’s base URL.
 
-NVIDIA Enterprise Reference Architecture (RA) concepts
-	•	The RA pattern catalog is based on NVIDIA Enterprise RA conventions (e.g., the C-G-N-B style node descriptors and node-count scaling ranges).
-	•	Current patterns included are intentionally minimal and meant to be expanded over time.
+### Model used
+- Default reasoning model used for API calls:
+  - `deepseek-ai/deepseek-v3.1-terminus`
 
-NVIDIA Networking defaults (from RA guidance)
+> Note: For reliability, the project prefers deterministic “facts” from local catalogs whenever possible. The model is used as a fallback for unknown inputs (prototype mode).
 
+### NVIDIA Enterprise Reference Architecture (RA) concepts
+- The RA pattern catalog is based on NVIDIA Enterprise RA conventions (e.g., the C-G-N-B style node descriptors and node-count scaling ranges).
+- Current patterns included are intentionally minimal and meant to be expanded over time.
+
+### NVIDIA Networking defaults (from RA guidance)
 The catalog currently encodes a default “Spectrum-X” approach:
-	•	Spectrum-X Ethernet
-	•	Spectrum-4 switches
-	•	BlueField-3 SuperNIC / DPU (north-south guidance)
+- **Spectrum-X Ethernet**
+- **Spectrum-4 switches**
+- **BlueField-3 SuperNIC / DPU** (north-south guidance)
 
-These defaults are not yet used to generate a full topology/BOM, but they inform the ra recommend output fields (fabric, platform).
+These defaults are not yet used to generate a full topology/BOM, but they inform the `ra recommend` output fields (`fabric`, `platform`).
 
-⸻
+---
 
-Current functionality (strict JSON CLI)
+## Current functionality (strict JSON CLI)
 
-All commands print strict JSON only to stdout (including errors). This is deliberate so the CLI can be chained into other tools.
+All commands print **strict JSON only** to stdout (including errors). This is deliberate so the CLI can be chained into other tools.
 
-1) GPU spec lookup (prototype)
+### 1) GPU spec lookup (prototype)
+Looks up a GPU model name and returns basic specs (currently: `memory_gb`).
 
-Looks up a GPU model name and returns basic specs (currently: memory_gb).
-	•	First checks a small deterministic lookup table.
-	•	If unknown, it can fall back to the NIM-hosted model and asks it for strict JSON.
+- First checks a small deterministic lookup table.
+- If unknown, it can fall back to the NIM-hosted model and asks it for strict JSON.
 
 Example:
 
+```bash
 uv run python -m gpu_cluster_generator gpu spec --gpu "NVIDIA H100"
 
 Example output:
@@ -120,7 +120,7 @@ Setup
 Prerequisites
 	•	macOS / Linux
 	•	Python >= 3.11
-	•	uv￼ installed (recommended)
+	•	uv installed (recommended)
 
 Install dependencies
 
@@ -213,4 +213,3 @@ Security / operational notes
 	•	Never commit your .env (API keys).
 	•	Model fallback is for prototype convenience; for production-quality accuracy, prefer facts derived from official spec sheets / reference architecture documents encoded into catalogs.
 
-⸻
